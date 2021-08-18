@@ -14,8 +14,11 @@ namespace TheBlogProject.Models
     public class Post
     {
         public int Id { get; set; }
+
+        [Display(Name = "Blog Name")]
         public int BlogId { get; set; }
-        public string BlogUSerId { get; set; }
+
+        public string BlogUserId { get; set; }
 
         [Required]
         [StringLength(75, ErrorMessage ="The {0} must be at least {2} and no more than {1} characters long", MinimumLength = 2)]
