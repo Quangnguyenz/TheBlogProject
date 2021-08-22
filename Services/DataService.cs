@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,9 @@ namespace TheBlogProject.Services
 
         public async Task ManageDataAsync()
         {
+            //Task: Create the DB from the Migrations
+            await _dbContext.Database.MigrateAsync();
+
             //Task 1: Seed a few Roles into the system
             await SeedRolesAsync();
 
