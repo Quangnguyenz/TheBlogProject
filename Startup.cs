@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using TheBlogProject.Data;
 using TheBlogProject.Models;
 using TheBlogProject.Services;
+using TheBlogProject.ViewModels;
 
 namespace TheBlogProject
 {
@@ -46,6 +47,10 @@ namespace TheBlogProject
 
             //Register my custom DataService class
             services.AddScoped<DataService>();
+
+            //register a precondigured instance of the Mailsettings class
+            services.Configure<MailSettings>(Configuration.GetSection("MailSetings"));
+            services.AddScoped<IBlogEmailSender, EmailService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
