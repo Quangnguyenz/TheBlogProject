@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TheBlogProject.Services
 {
-    interface IBlogEmailSender : IEmailSender
+    public interface IBlogEmailSender : IEmailSender
     {
         Task SendContactEmailAsync(string emailForm, string name, string subject, string htmlMessage);
     }

@@ -66,6 +66,7 @@ namespace TheBlogProject.Services
                 UserName = "wongwalkero@gmail.com",
                 FirstName = "Wong",
                 LastName = "Walkero",
+                DisplayName = "Walkero",
                 PhoneNumber = "(123) 456 789",
                 EmailConfirmed = true
             };
@@ -83,6 +84,7 @@ namespace TheBlogProject.Services
                 UserName = "walkerowong@gmail.com",
                 FirstName = "walkero",
                 LastName = "wong",
+                DisplayName = "wong",
                 PhoneNumber = "(987) 654 321",
                 EmailConfirmed = true
 

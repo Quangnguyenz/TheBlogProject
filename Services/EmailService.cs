@@ -1,5 +1,6 @@
 ﻿using MailKit.Net.Smtp;
 using MailKit.Security;
+using Microsoft.Extensions.Options;
 using MimeKit;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace TheBlogProject.Services
     {
         private readonly MailSettings _mailSettings;
 
-        public EmailService(IOption<MailSettings> mailSetting)
+        public EmailService(IOptions<MailSettings> mailSetting)
         {
             _mailSettings = mailSetting.Value;
         }
