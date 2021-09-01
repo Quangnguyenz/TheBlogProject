@@ -36,6 +36,7 @@ namespace TheBlogProject.Services
                 HtmlBody = htmlMessage
             };
 
+
             email.Body = builder.ToMessageBody();
 
             using var smtp = new SmtpClient();
