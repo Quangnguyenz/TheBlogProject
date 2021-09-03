@@ -7,12 +7,14 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TheBlogProject.Data;
 using TheBlogProject.Models;
+using TheBlogProject.Services;
 
 namespace TheBlogProject.Controllers
 {
     public class PostsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ISlugService slugService; 
 
         public PostsController(ApplicationDbContext context)
         {
