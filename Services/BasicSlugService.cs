@@ -79,11 +79,6 @@ namespace TheBlogProject.Services
                 return sb.ToString();
         }
 
-        public bool IsUnique(string slug)
-        {
-            return !_context.Posts.Any(cp => cp.Slug == slug);
-        }
-
         private string RemapInternationalCharToAscii(char c)
         {
             string s = c.ToString().ToLowerInvariant();
