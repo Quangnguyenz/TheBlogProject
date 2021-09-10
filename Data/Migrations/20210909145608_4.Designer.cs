@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TheBlogProject.Data;
@@ -9,9 +10,10 @@ using TheBlogProject.Data;
 namespace TheBlogProject.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210909145608_4")]
+    partial class _4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -393,6 +395,9 @@ namespace TheBlogProject.Data.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<string>("AuthorId")
+                        .HasColumnType("text");
+
                     b.Property<string>("BlogUserId")
                         .HasColumnType("text");
 
@@ -406,7 +411,7 @@ namespace TheBlogProject.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BlogUserId");
+                    b.HasIndex("AuthorId");
 
                     b.HasIndex("PostId");
 
@@ -517,7 +522,7 @@ namespace TheBlogProject.Data.Migrations
                 {
                     b.HasOne("TheBlogProject.Models.BlogUser", "Author")
                         .WithMany()
-                        .HasForeignKey("BlogUserId");
+                        .HasForeignKey("AuthorId");
 
                     b.HasOne("TheBlogProject.Models.Post", "Post")
                         .WithMany("Tags")
