@@ -8,12 +8,11 @@ function AddTag() {
     let searchResult = search(tagEntry.value);
     if (searchResult != null) {
         //Trigger sweet alert for the empty string for the condition contained in the searchResult var
-        Swal.fire({
-            title: 'Error!',
-            text: 'Do you want to continue',
-            icon: 'error',
-            confirmButtonText: 'Cool'
+        swalWithDarkButton.fire({
+            html: `<span class="fw-bolder">${searchResult.toUpperCase()}</span>`
         })
+
+
     }
     else {
 
@@ -23,18 +22,26 @@ function AddTag() {
 
     }
 
-    //Clear out thr TagEntry control
+    //Clear out the TagEntry control
     tagEntry.value = "";
     return true;
 }
 
 function DeleteTag() {
     let tagCount = 1
-    while (tagCount > 0) {
-        let tagList = document.getElementById("TagList");
-        let selectedIndex = tagList.selectedIndex;
-        if (selectedIndex >= 0) {
-            tagList.options[selectedIndex] = null;
+    let tagList = document.getElementById("TagList");
+    if (!tagList) return false;
+
+    if (tagList.selectedIndex == -1) {
+        swalWithDarkButton.fire({
+            html: "<span class='fw-bolder'>CHOOSE A TAG BEFORE DELETING</span>"
+        })
+        return true;
+    }
+
+    while (tagCount > 0) {   
+        if (tagList.selectedIndex >= 0) {
+            tagList.options[tagList.selectedIndex] = null;
             --tagCount;
         }
         else {
@@ -76,7 +83,7 @@ function search(str) {
 
     var tagsEl = document.getElementById('TagList')
     if (tagsEl) {
-        let options = tagsEl.Options;
+        let options = tagsEl.options;
         for (let index = 0; index < options.length; index++) {
             if (options[index].value == str)
                 return `The Tag #${str} was detected as a duplicate and not permitted`            
@@ -84,3 +91,14 @@ function search(str) {
     }
 
 }
+
+
+
+const swalWithDarkButton = Swal.mixin({
+    customClass: {
+        confirmButton:'btn btn-danger btn-sm btn-block btn-outline-dark'
+    },
+    imageUrl: '/images/oops.jpg',
+    timer: 5000,
+    buttonStyling: false
+})
