@@ -19,7 +19,8 @@ namespace TheBlogProject.Controllers
         private readonly ISlugService _slugService;
         private readonly IImageService _imageService;
         private readonly UserManager<BlogUser> _userManager;
-
+        
+        
         public PostsController(ApplicationDbContext context, ISlugService slugService, IImageService imageService, UserManager<BlogUser> userManager)
         {
             _context = context;
@@ -27,6 +28,19 @@ namespace TheBlogProject.Controllers
             _imageService = imageService;
             _userManager = userManager;
         }
+
+        //BlogPostIndex
+        public async Task<IActionResult> BlogPostIndex(int? id)
+        {
+            if(id is null)
+            {
+                return NotFound();
+            }
+
+            var posts = _context.Posts.Where(p => p.BlogId == id).ToList();
+
+            return View("Index", posts);
+            }
 
         // GET: Posts
         public async Task<IActionResult> Index()
@@ -36,9 +50,30 @@ namespace TheBlogProject.Controllers
         }
 
         // GET: Posts/Details/5
-        public async Task<IActionResult> Details(int? id)
+        //public async Task<IActionResult> Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var post = await _context.Posts
+        //        .Include(p => p.Blog)
+        //        .Include(p => p.BlogUser)
+        //        .Include(p => p.Tags)
+        //        .FirstOrDefaultAsync(m => m.Id == id);
+        //    if (post == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(post);
+        //}
+
+
+        public async Task<IActionResult> Details(string slug)
         {
-            if (id == null)
+            if (string.IsNullOrEmpty(slug))
             {
                 return NotFound();
             }
@@ -47,7 +82,7 @@ namespace TheBlogProject.Controllers
                 .Include(p => p.Blog)
                 .Include(p => p.BlogUser)
                 .Include(p => p.Tags)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Slug == slug);
             if (post == null)
             {
                 return NotFound();
@@ -96,11 +131,21 @@ namespace TheBlogProject.Controllers
                 }
 
                 //Detect incoming duplicate slugs
-                if (!_slugService.IsUnique(slug))
+                else if (!_slugService.IsUnique(slug))
                 {
                     validationError = true;
                     ModelState.AddModelError("Title", "The Title you provided cannot be used as it results in a duplicate slug.");
                 }
+
+
+                else if (slug.Contains("test"))
+                {
+                    validationError = true;
+                    ModelState.AddModelError("", "Are you testing?");
+                    ModelState.AddModelError("Title", "The Title cannot contain the word test");
+                }
+
+
 
                 if (validationError)
                 {
