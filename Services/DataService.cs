@@ -72,7 +72,7 @@ namespace TheBlogProject.Services
             };
 
             //Step 2: Use the UserManager to create a new user that is defined by 
-            await _userManager.CreateAsync(adminUser, "Abc&123!");
+            await _userManager.CreateAsync(adminUser, "Ww06081234!");
 
             //Step 3: Add this new user to the Administrator role
             await _userManager.AddToRoleAsync(adminUser, BlogRole.Administrator.ToString());

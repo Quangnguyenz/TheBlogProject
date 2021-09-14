@@ -32,8 +32,15 @@ namespace TheBlogProject.Controllers
             var pageNumber = page ?? 1;
             var pageSize = 5;
 
-            var blogs = _context.Blogs.Where(
-                b => b.Posts.Any(p => p.ReadyStatus == Enums.ReadyStatus.ProductionReady))
+            //var blogs = _context.Blogs
+            //    .Include(p => p.BlogUser)
+            //    .Where(
+            //    b => b.Posts.Any(p => p.ReadyStatus == Enums.ReadyStatus.ProductionReady))
+            //    .OrderByDescending(b => b.Created)
+            //    .ToPagedListAsync(pageNumber, pageSize);
+
+            var blogs = _context.Blogs
+                .Include(p => p.BlogUser)
                 .OrderByDescending(b => b.Created)
                 .ToPagedListAsync(pageNumber, pageSize);
 
