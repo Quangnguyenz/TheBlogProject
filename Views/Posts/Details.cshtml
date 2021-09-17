@@ -71,7 +71,7 @@
 
 <hr />
 
-<span id="commentSection" class="btn btn-sm btn-dark w-100">@Model.Comments.Count COMMEN(S)</span>
+<span id="commentSection" class="btn btn-sm btn-dark w-100">@Model.Comments.Count COMMENT(S)</span>
 
 @foreach (var comment in Model.Comments)
 {
@@ -81,8 +81,41 @@
         </div>
         <div class="flex-grow-1 ms-3">
             <h4>@comment.BlogUser.FullName</h4>
-            <small><i>Posted on @comment.Created.ToString("MMM dd, yyyy")</i></small>
-            <p>@comment.Body</p>
+            <small>
+                <i>
+                    @if (comment.Moderated is not null)
+                    {
+                        <span class="small">
+                            <span class="fw-bolder">
+                                Moderated <span class="text-danger font-italic">(@comment.ModerationType.ToString().ToLower())</span>
+                            </span>
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="small font-italic">@comment.Created.ToString("MMM dd, yyyy")</span>
+                    }
+                </i>
+            </small>
+
+
+            @if (string.IsNullOrEmpty(comment.Body))
+            {
+                return;
+            }
+
+            else if (comment.Moderated is not null)
+            {
+                <p>@comment.ModeratedBody</p>
+            }
+
+            else if (comment.Deleted is null)
+            {
+                <p>@comment.Body</p>
+            }
+
+
+
 
             @*Render The Edit button*@
             @if (comment.Moderated is null && comment.Deleted is null && comment.BlogUserId == userManager.GetUserId(User))
@@ -138,7 +171,7 @@
     <div class="modal" id="moderateModal_@comment.Id">
         <div class="modal-dialog">
             <div class="modal-content">
-                
+
                 <!--Modal header-->
                 <div class="modal-header">
                     <h4 class="modal-title">Editing Comment...</h4>
@@ -148,7 +181,7 @@
                 <div class="modal-body">
                     <form asp-action="Moderate" asp-controller="Comments">
                         @Html.Hidden("Id", comment.Id)
-                        @Html.Hidden("Body", comment.Id)
+                        @Html.Hidden("Body", comment.Body)
 
                         <div class="form-group">
                             <label>Original Comment</label>
@@ -157,14 +190,14 @@
 
                         <div class="form-group">
                             <label>Moderated Comment</label>
-                            <textarea required name="ModerateBody" class="form-control" >@comment.ModeratedBody</textarea>
+                            <textarea required name="ModeratedBody" class="form-control">@comment.ModeratedBody</textarea>
                         </div>
 
                         <div class="form-group">
                             <label class="control-label">Reason For Moderation</label>
                             <select class="form-control" asp-for="@comment.ModerationType" name="ModerationType" asp-items="@Html.GetEnumSelectList<ModerationType>()"> </select>
                         </div>
-                        
+
                         <button class="btn-sm btn-dark border-success fw-bold mt-3" type="submit">Submit</button>
                     </form>
                 </div>
