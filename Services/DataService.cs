@@ -80,17 +80,17 @@ namespace TheBlogProject.Services
             //Step 1 repeat: Create the moderator user 
             var modUser = new BlogUser()
             {
-                Email = "walkerowong@gmail.com",
-                UserName = "walkerowong@gmail.com",
-                FirstName = "walkero",
-                LastName = "wong",
-                DisplayName = "wong",
+                Email = "quangnguyen08v@gmail.com",
+                UserName = "quangnguyen08v",
+                FirstName = "Wong",
+                LastName = "Yun",
+                DisplayName = "wong yun",
                 PhoneNumber = "(987) 654 321",
                 EmailConfirmed = true
 
             };
 
-            await _userManager.CreateAsync(modUser, "Abc&123!");
+            await _userManager.CreateAsync(modUser, "Ff06081234!");
             await _userManager.AddToRoleAsync(modUser, BlogRole.Moderator.ToString());
         }
     }
