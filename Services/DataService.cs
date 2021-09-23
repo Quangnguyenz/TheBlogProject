@@ -62,17 +62,17 @@ namespace TheBlogProject.Services
             //Step 1: Create a new instance of BlogUser 
             var adminUser = new BlogUser()
             {
-                Email = "wongwalkero@gmail.com",
-                UserName = "wongwalkero@gmail.com",
-                FirstName = "Wong",
-                LastName = "Walkero",
-                DisplayName = "Walkero",
+                Email = "qndevblog@gmail.com",
+                UserName = "qndevblog@gmail.com",
+                FirstName = "Q",
+                LastName = "N",
+                DisplayName = "QN",
                 PhoneNumber = "(123) 456 789",
                 EmailConfirmed = true
             };
 
             //Step 2: Use the UserManager to create a new user that is defined by 
-            await _userManager.CreateAsync(adminUser, "Ww06081234!");
+            await _userManager.CreateAsync(adminUser, "Qs06081245*");
 
             //Step 3: Add this new user to the Administrator role
             await _userManager.AddToRoleAsync(adminUser, BlogRole.Administrator.ToString());
@@ -82,15 +82,15 @@ namespace TheBlogProject.Services
             {
                 Email = "quangnguyen08v@gmail.com",
                 UserName = "quangnguyen08v",
-                FirstName = "Wong",
-                LastName = "Yun",
-                DisplayName = "wong yun",
+                FirstName = "Q",
+                LastName = "N",
+                DisplayName = "QN",
                 PhoneNumber = "(987) 654 321",
                 EmailConfirmed = true
 
             };
 
-            await _userManager.CreateAsync(modUser, "Ff06081234!");
+            await _userManager.CreateAsync(modUser, "Qs06081245*");
             await _userManager.AddToRoleAsync(modUser, BlogRole.Moderator.ToString());
         }
     }
