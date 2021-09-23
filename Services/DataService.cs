@@ -81,7 +81,7 @@ namespace TheBlogProject.Services
             var modUser = new BlogUser()
             {
                 Email = "quangnguyen08v@gmail.com",
-                UserName = "quangnguyen08v",
+                UserName = "quangnguyen08v@gmail.com",
                 FirstName = "Q",
                 LastName = "N",
                 DisplayName = "QN",

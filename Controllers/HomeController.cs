@@ -44,6 +44,8 @@ namespace TheBlogProject.Controllers
                 .OrderByDescending(b => b.Created)
                 .ToPagedListAsync(pageNumber, pageSize);
 
+            ViewData["HeaderImage"] = "/images/BlogIndexImage.jpeg";
+
             return View(await blogs);             
             
         }
