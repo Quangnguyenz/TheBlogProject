@@ -60,10 +60,14 @@ namespace TheBlogProject.Controllers
 
             //var posts = _context.Posts.Where(p => p.BlogId == id).ToList();
 
-            var posts = await _context.Posts
+            var posts = await _context.Posts   
                 .Where(p => p.BlogId == id && p.ReadyStatus == ReadyStatus.ProductionReady)
+                .Include(p => p.Blog)
                 .OrderByDescending(p => p.Created)
                 .ToPagedListAsync(pageNumber, pageSize);
+
+            //var blog = await _context.Blogs.Where(b => b.Id = id);
+            ViewData["HeaderImage"] = "/images/BlogIndexImage.jpeg";
 
             return View(posts);
             }
